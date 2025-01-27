@@ -1,0 +1,1 @@
+export type driveTypes = "system-drive" | "other-drive";
