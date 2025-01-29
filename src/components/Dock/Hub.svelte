@@ -2,7 +2,10 @@
   import { Search, Mic, Lock, Power, Cloud, Calendar, Sun, Folder, FileImage, Camera, Mail, Calculator } from 'lucide-svelte';
   import { appsConfig } from 'eXtern-OS/configs/apps/apps-config';
   import { theme } from 'eXtern-OS/stores/theme.store';
+  import { activeApp, openApps } from 'eXtern-OS/stores/apps.store';
+  import { createEventDispatcher } from "svelte";
   let activeTab = 'activity';
+  const dispatch = createEventDispatcher();
 
   const apps = [
     { icon: "M", label: "Word", color: "bg-blue-600" },
@@ -31,6 +34,16 @@
       time: "2min",
     }
   ];
+
+  async function openApp(appID: string) {
+    dispatch("hide"); // This triggers `hideHub` in the parent
+
+    setTimeout(() => {
+      $openApps[appID] = true;
+      }, 100);
+    
+
+  }
 </script>
 
 <div class="relative w-[1200px]">
@@ -72,6 +85,7 @@
           {#each Object.entries(appsConfig) as [appID, config]}
             <a
               href="#"
+              on:click={() => openApp(appID)}
               class="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-zinc-800 transition-colors"
             >
               <img

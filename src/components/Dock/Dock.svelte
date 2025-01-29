@@ -101,7 +101,7 @@
   >
   {#if hubIsVisible}
     <div in:fadeIn out:fadeOut class="hub-menu-parent" use:elevation={'menubar-menu-parent'}>
-      <Hub bind:isThemeWarningDialogOpen />
+      <Hub bind:isThemeWarningDialogOpen on:hide={hideHub}  />
     </div>
   {/if}
   {#if visible}
